@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 public class StringSchema {
 
     private Map<String, Predicate<String>> rules;
+    private boolean required;
 
     public StringSchema() {
         rules = new LinkedHashMap<>();
@@ -14,6 +15,7 @@ public class StringSchema {
 
     public StringSchema required() {
         Predicate<String> isRequired = str -> str != null && !str.isEmpty();
+        required = true;
         rules.put("REQUIRED", isRequired);
         return this;
     }
@@ -31,6 +33,12 @@ public class StringSchema {
     }
 
     public boolean isValid(String data) {
+        if (data == null && !required) {
+            return true;
+        }
+        if (data == null && required) {
+            return false;
+        }
         for (var rule : rules.values()) {
             if (!rule.test(data)) {
                 return false;
