@@ -1,10 +1,8 @@
 package hexlet.code.schemas;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.function.Predicate;
 
-public class NumberSchema extends BaseSchema<Integer>{
+public class NumberSchema extends BaseSchema<Integer> {
 
     public NumberSchema required() {
         Predicate<Integer> required = num -> num != null;
