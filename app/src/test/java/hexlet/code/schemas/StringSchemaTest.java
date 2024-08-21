@@ -10,40 +10,40 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class StringSchemaTest {
 
     private Validator validator = new Validator();
-    private StringSchema baseStringSchema;
+    private StringSchema stringSchema;
 
     @BeforeEach
     public void setUp() {
-        baseStringSchema = validator.string();
+        stringSchema = validator.string();
     }
 
     @Test
     public void requiredWithNullTest() {
-        assertTrue(baseStringSchema.isValid(null));
-        assertFalse(baseStringSchema.required().isValid(null));
+        assertTrue(stringSchema.isValid(null));
+        assertFalse(stringSchema.required().isValid(null));
     }
 
     @Test
     public void requiredWithEmptyStringTest() {
-        assertTrue(baseStringSchema.isValid(""));
-        assertFalse(baseStringSchema.required().isValid(""));
+        assertTrue(stringSchema.isValid(""));
+        assertFalse(stringSchema.required().isValid(""));
     }
 
     @Test
     public void minLengthTest() {
-        assertTrue(baseStringSchema.minLength(5).isValid("what does the fox say"));
-        assertFalse(baseStringSchema.minLength(5).isValid("what"));
+        assertTrue(stringSchema.minLength(5).isValid("what does the fox say"));
+        assertFalse(stringSchema.minLength(5).isValid("what"));
     }
 
     @Test
     public void containsTest() {
-        assertTrue(baseStringSchema.contains("wh").isValid("what does the fox say"));
-        assertFalse(baseStringSchema.contains("wh").isValid("does the fox say"));
+        assertTrue(stringSchema.contains("wh").isValid("what does the fox say"));
+        assertFalse(stringSchema.contains("wh").isValid("does the fox say"));
     }
 
     @Test
     public void collaborationMethodsTest() {
-        StringSchema actualSchema = baseStringSchema.required()
+        StringSchema actualSchema = stringSchema.required()
                 .contains("what ")
                 .minLength(10);
         assertTrue(actualSchema.isValid("what does the fox say"));

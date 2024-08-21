@@ -10,37 +10,37 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class NumberSchemaTest {
 
     private Validator validator = new Validator();
-    private NumberSchema baseNumberSchema;
+    private NumberSchema numberSchema;
 
     @BeforeEach
     void setUp() {
-        baseNumberSchema = validator.number();
+        numberSchema = validator.number();
     }
 
     @Test
     public void requiredWithNullTest() {
-        assertTrue(baseNumberSchema.isValid(null));
-        assertFalse(baseNumberSchema.required().isValid(null));
+        assertTrue(numberSchema.isValid(null));
+        assertFalse(numberSchema.required().isValid(null));
     }
 
     @Test
     public void positiveTest() {
-        assertTrue(baseNumberSchema.positive().isValid(null));
-        assertTrue(baseNumberSchema.positive().isValid(5));
-        assertFalse(baseNumberSchema.positive().isValid(0));
+        assertTrue(numberSchema.positive().isValid(null));
+        assertTrue(numberSchema.positive().isValid(5));
+        assertFalse(numberSchema.positive().isValid(0));
     }
 
     @Test
     public void inRangeTest() {
-        assertTrue(baseNumberSchema.range(5, 10).isValid(5));
-        assertTrue(baseNumberSchema.range(5, 10).isValid(10));
-        assertFalse(baseNumberSchema.range(5, 10).isValid(4));
-        assertFalse(baseNumberSchema.range(5, 10).isValid(11));
+        assertTrue(numberSchema.range(5, 10).isValid(5));
+        assertTrue(numberSchema.range(5, 10).isValid(10));
+        assertFalse(numberSchema.range(5, 10).isValid(4));
+        assertFalse(numberSchema.range(5, 10).isValid(11));
     }
 
     @Test
     public void collaborationMethodsTest() {
-        NumberSchema actual = baseNumberSchema.positive();
+        NumberSchema actual = numberSchema.positive();
         assertTrue(actual.isValid(null));
         actual.required();
         assertFalse(actual.isValid(null));
