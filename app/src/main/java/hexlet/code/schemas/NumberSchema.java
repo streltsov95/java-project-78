@@ -7,16 +7,16 @@ import java.util.function.Predicate;
 public class NumberSchema {
 
     private Map<String, Predicate<Integer>> rules;
-    private boolean required;
+    private boolean isRequired;
 
     public NumberSchema() {
         rules = new LinkedHashMap<>();
     }
 
     public NumberSchema required() {
-        Predicate<Integer> isRequired = num -> num != null;
-        required = true;
-        rules.put("REQUIRED", isRequired);
+        Predicate<Integer> required = num -> num != null;
+        isRequired = true;
+        rules.put("REQUIRED", required);
         return this;
     }
 
@@ -33,10 +33,10 @@ public class NumberSchema {
     }
 
     public boolean isValid(Integer data) {
-        if (data == null && !required) {
+        if (data == null && !isRequired) {
             return true;
         }
-        if (data == null && required) {
+        if (data == null && isRequired) {
             return false;
         }
         for (var rule : rules.values()) {
