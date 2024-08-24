@@ -37,4 +37,29 @@ class MapSchemaTest {
         data.put("key2", "value2");
         assertTrue(mapSchema.isValid(data));
     }
+
+    @Test
+    public void nestedValidationTest() {
+        Map<Object, BaseSchema<?>> schemas = new HashMap<>();
+
+        schemas.put("firstName", validator.string().required());
+        schemas.put("lastName", validator.string().required().minLength(2));
+
+        mapSchema.shape(schemas);
+
+        Map<Object, Object> human1 = new HashMap<>();
+        human1.put("firstName", "John");
+        human1.put("lastName", "Smith");
+        mapSchema.isValid(human1);
+
+        Map<Object, Object> human2 = new HashMap<>();
+        human2.put("firstName", "John");
+        human2.put("lastName", null);
+        mapSchema.isValid(human2);
+
+        Map<Object, Object> human3 = new HashMap<>();
+        human3.put("firstName", "Anna");
+        human3.put("lastName", "B");
+        mapSchema.isValid(human3);
+    }
 }
