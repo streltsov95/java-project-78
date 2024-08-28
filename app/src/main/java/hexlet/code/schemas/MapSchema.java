@@ -1,24 +1,22 @@
 package hexlet.code.schemas;
 
-import hexlet.code.Validator;
-
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class MapSchema extends BaseSchema<Map<Object, Object>> {
+public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
 
-    public MapSchema sizeOf(int size) {
-        Predicate<Map<Object, Object>> isSize = map -> map.size() == size;
+    public MapSchema<K, V> sizeOf(int size) {
+        Predicate<Map<K, V>> isSize = map -> map.size() == size;
         rules.put("SIZE_OF", isSize);
         return this;
     }
 
-    public <T> MapSchema shape(Map<String, BaseSchema<T>> schemas) {
-        Predicate<Map<Object, T>> isShape = map -> {
+    public <T> MapSchema<K, V> shape(Map<String, BaseSchema<T>> schemas) {
+        Predicate<Map<K, V>> isShape = map -> {
             for (var entry : schemas.entrySet()) {
                 var value = map.get(entry.getKey());
                 var schema = entry.getValue();
-                if (!schema.isValid(value)) {
+                if (!schema.isValid((T) value)) {
                     return false;
                 }
             }
