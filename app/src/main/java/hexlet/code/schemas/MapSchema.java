@@ -7,37 +7,24 @@ import java.util.function.Predicate;
 
 public class MapSchema extends BaseSchema<Map<Object, Object>> {
 
-    private Map<Object, BaseSchema<?>> schemas;
-
     public MapSchema sizeOf(int size) {
         Predicate<Map<Object, Object>> isSize = map -> map.size() == size;
         rules.put("SIZE_OF", isSize);
         return this;
     }
 
-    public MapSchema shape(Map<Object, BaseSchema<?>> schemas) {
-        this.schemas = schemas;
-        return this;
-    }
-
-    @Override
-    public boolean isValid(Map<Object, Object> data) {
-        if (data == null && !isRequired) {
-            return true;
-        }
-        if (data == null && isRequired) {
-            return false;
-        }
-        for (var rule : rules.values()) {
-            if (!rule.test(data)) {
-                return false;
+    public <T> MapSchema shape(Map<String, BaseSchema<T>> schemas) {
+        Predicate<Map<Object, T>> isShape = map -> {
+            for (var entry : schemas.entrySet()) {
+                var value = map.get(entry.getKey());
+                var schema = entry.getValue();
+                if (!schema.isValid(value)) {
+                    return false;
+                }
             }
-        }
-        for (var schema : schemas.entrySet()) {
-            var dataValue = data.get(schema.getKey());
-            schema.getValue().isValid(dataValue);
-
-        }
-        return true;
+            return true;
+        };
+        rules.put("SHAPE", isShape);
+        return this;
     }
 }
