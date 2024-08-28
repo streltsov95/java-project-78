@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
 
-    public MapSchema<K, V> sizeOf(int size) {
+    public MapSchema<K, V> sizeof(int size) {
         Predicate<Map<K, V>> isSize = map -> map.size() == size;
         rules.put("SIZE_OF", isSize);
         return this;

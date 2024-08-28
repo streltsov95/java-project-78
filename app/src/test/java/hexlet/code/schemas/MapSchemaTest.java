@@ -32,7 +32,7 @@ class MapSchemaTest {
         Map<Object, Object> data = new HashMap<>();
         data.put("key1", "value1");
         assertTrue(mapSchema.required().isValid(data));
-        mapSchema.sizeOf(2);
+        mapSchema.sizeof(2);
         assertFalse(mapSchema.isValid(data));
         data.put("key2", "value2");
         assertTrue(mapSchema.isValid(data));
