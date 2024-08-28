@@ -2,9 +2,8 @@ package hexlet.code.schemas;
 
 import java.util.function.Predicate;
 
-public class StringSchema extends BaseSchema<String> {
+public final class StringSchema extends BaseSchema<String> {
 
-    @Override
     public StringSchema required() {
         Predicate<String> required = str -> str != null && !str.isEmpty();
         isRequired = true;

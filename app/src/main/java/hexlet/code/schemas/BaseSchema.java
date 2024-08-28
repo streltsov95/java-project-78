@@ -13,14 +13,7 @@ public class BaseSchema<T> {
         rules = new LinkedHashMap<>();
     }
 
-    public BaseSchema<T> required() {
-        Predicate<T> required = t -> t != null;
-        isRequired = true;
-        rules.put("REQUIRED", required);
-        return this;
-    }
-
-    public boolean isValid(T data) {
+    public final boolean isValid(T data) {
         if (data == null && !isRequired) {
             return true;
         }

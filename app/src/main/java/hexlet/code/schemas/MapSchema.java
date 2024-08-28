@@ -1,9 +1,17 @@
 package hexlet.code.schemas;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 
-public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
+public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
+
+    public MapSchema<K, V> required() {
+        Predicate<Map<K, V>> required = Objects::nonNull;
+        isRequired = true;
+        rules.put("REQUIRED", required);
+        return this;
+    }
 
     public MapSchema<K, V> sizeof(int size) {
         Predicate<Map<K, V>> isSize = map -> map.size() == size;
