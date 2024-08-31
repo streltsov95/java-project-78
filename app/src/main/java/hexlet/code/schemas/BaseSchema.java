@@ -1,6 +1,6 @@
 package hexlet.code.schemas;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -10,7 +10,7 @@ public class BaseSchema<T> {
     protected boolean isRequired;
 
     public BaseSchema() {
-        rules = new LinkedHashMap<>();
+        rules = new HashMap<>();
     }
 
     public final boolean isValid(T data) {
