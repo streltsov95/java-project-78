@@ -4,23 +4,23 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public final class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
+public final class MapSchema extends BaseSchema<Map<?, ?>> {
 
-    public MapSchema<K, V> required() {
-        Predicate<Map<K, V>> required = Objects::nonNull;
+    public MapSchema required() {
+        Predicate<Map<?, ?>> required = Objects::nonNull;
         isRequired = true;
         rules.put("REQUIRED", required);
         return this;
     }
 
-    public MapSchema<K, V> sizeof(int size) {
-        Predicate<Map<K, V>> isSize = map -> map.size() == size;
+    public MapSchema sizeof(int size) {
+        Predicate<Map<?, ?>> isSize = map -> map.size() == size;
         rules.put("SIZE_OF", isSize);
         return this;
     }
 
-    public <T> MapSchema<K, V> shape(Map<String, BaseSchema<T>> schemas) {
-        Predicate<Map<K, V>> isShape = map -> {
+    public <T> MapSchema shape(Map<String, BaseSchema<T>> schemas) {
+        Predicate<Map<?, ?>> isShape = map -> {
             for (var entry : schemas.entrySet()) {
                 var value = map.get(entry.getKey());
                 var schema = entry.getValue();
