@@ -2,6 +2,7 @@ package hexlet.code.schemas;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class BaseSchema<T> {
@@ -11,6 +12,13 @@ public class BaseSchema<T> {
 
     public BaseSchema() {
         rules = new HashMap<>();
+    }
+
+    public BaseSchema<T> required() {
+        Predicate<T> required = Objects::nonNull;
+        isRequired = true;
+        rules.put("REQUIRED", required);
+        return this;
     }
 
     public final boolean isValid(T data) {
