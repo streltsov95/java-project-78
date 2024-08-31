@@ -32,6 +32,7 @@ class NumberSchemaTest {
 
     @Test
     public void inRangeTest() {
+        assertTrue(numberSchema.range(5, 10).isValid(null));
         assertTrue(numberSchema.range(5, 10).isValid(5));
         assertTrue(numberSchema.range(5, 10).isValid(10));
         assertFalse(numberSchema.range(5, 10).isValid(4));
