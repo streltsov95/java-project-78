@@ -32,12 +32,14 @@ class StringSchemaTest {
     @Test
     public void minLengthTest() {
         assertTrue(stringSchema.minLength(5).isValid("what does the fox say"));
+        assertTrue(stringSchema.minLength(5).isValid(null));
         assertFalse(stringSchema.minLength(5).isValid("what"));
     }
 
     @Test
     public void containsTest() {
         assertTrue(stringSchema.contains("wh").isValid("what does the fox say"));
+        assertTrue(stringSchema.contains("wh").isValid(null));
         assertFalse(stringSchema.contains("wh").isValid("does the fox say"));
     }
 
