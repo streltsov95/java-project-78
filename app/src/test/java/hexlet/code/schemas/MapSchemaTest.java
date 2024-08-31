@@ -28,7 +28,7 @@ class MapSchemaTest {
     }
 
     @Test
-    public void mapSchemaTest() {
+    public void sizeOfTest() {
         Map<Object, Object> data = new HashMap<>();
         data.put("key1", "value1");
         mapSchema.sizeof(2);
