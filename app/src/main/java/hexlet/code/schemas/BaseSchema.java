@@ -14,12 +14,6 @@ public class BaseSchema<T> {
     }
 
     public final boolean isValid(T data) {
-        if (data == null && !isRequired) {
-            return true;
-        }
-        if (data == null && isRequired) {
-            return false;
-        }
         for (var rule : rules.values()) {
             if (!rule.test(data)) {
                 return false;
