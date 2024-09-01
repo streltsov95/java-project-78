@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 public class BaseSchema<T> {
 
     protected Map<String, Predicate<T>> rules;
-    protected boolean isRequired;
 
     public BaseSchema() {
         rules = new HashMap<>();
@@ -16,12 +15,17 @@ public class BaseSchema<T> {
 
     public BaseSchema<T> required() {
         Predicate<T> required = Objects::nonNull;
-        isRequired = true;
         rules.put("REQUIRED", required);
         return this;
     }
 
     public final boolean isValid(T data) {
+        if (!rules.containsKey("REQUIRED") && data == null) {
+            return true;
+        }
+        if (rules.containsKey("REQUIRED") && data == null) {
+            return false;
+        }
         for (var rule : rules.values()) {
             if (!rule.test(data)) {
                 return false;
