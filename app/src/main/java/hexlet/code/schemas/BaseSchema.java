@@ -13,6 +13,15 @@ public class BaseSchema<T> {
         rules = new HashMap<>();
     }
 
+    /**
+     * Marks the current schema as required, meaning that the value must not be {@code null}.
+     * This method adds a rule to the schema that checks if the value is non-null.
+     *
+     * <p>Internally, this method creates a {@link Predicate} that verifies the value is non-null
+     * and stores it in the {@code rules} map with the key "REQUIRED".</p>
+     *
+     * @return The current schema instance with the "required" rule applied.
+     */
     public BaseSchema<T> required() {
         Predicate<T> required = Objects::nonNull;
         rules.put("REQUIRED", required);
