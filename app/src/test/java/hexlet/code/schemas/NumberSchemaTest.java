@@ -25,18 +25,20 @@ class NumberSchemaTest {
 
     @Test
     public void positiveTest() {
-        assertTrue(numberSchema.positive().isValid(null));
-        assertTrue(numberSchema.positive().isValid(5));
-        assertFalse(numberSchema.positive().isValid(0));
+        var positiveSchema = numberSchema.positive();
+        assertTrue(positiveSchema.isValid(null));
+        assertTrue(positiveSchema.isValid(5));
+        assertFalse(positiveSchema.isValid(0));
     }
 
     @Test
     public void inRangeTest() {
-        assertTrue(numberSchema.range(5, 10).isValid(null));
-        assertTrue(numberSchema.range(5, 10).isValid(5));
-        assertTrue(numberSchema.range(5, 10).isValid(10));
-        assertFalse(numberSchema.range(5, 10).isValid(4));
-        assertFalse(numberSchema.range(5, 10).isValid(11));
+        var inRangeSchema = numberSchema.range(5, 10);
+        assertTrue(inRangeSchema.isValid(null));
+        assertTrue(inRangeSchema.isValid(5));
+        assertTrue(inRangeSchema.isValid(10));
+        assertFalse(inRangeSchema.isValid(4));
+        assertFalse(inRangeSchema.isValid(11));
     }
 
     @Test

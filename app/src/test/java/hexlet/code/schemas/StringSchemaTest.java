@@ -31,16 +31,18 @@ class StringSchemaTest {
 
     @Test
     public void minLengthTest() {
-        assertTrue(stringSchema.minLength(5).isValid("what does the fox say"));
-        assertTrue(stringSchema.minLength(5).isValid(null));
-        assertFalse(stringSchema.minLength(5).isValid("what"));
+        var minLengthSchema = stringSchema.minLength(5);
+        assertTrue(minLengthSchema.isValid("what does the fox say"));
+        assertTrue(minLengthSchema.isValid(null));
+        assertFalse(minLengthSchema.isValid("what"));
     }
 
     @Test
     public void containsTest() {
-        assertTrue(stringSchema.contains("wh").isValid("what does the fox say"));
-        assertTrue(stringSchema.contains("wh").isValid(null));
-        assertFalse(stringSchema.contains("wh").isValid("does the fox say"));
+        var containsSchema = stringSchema.contains("wh");
+        assertTrue(containsSchema.isValid("what does the fox say"));
+        assertTrue(containsSchema.isValid(null));
+        assertFalse(containsSchema.isValid("does the fox say"));
     }
 
     @Test
