@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 public class BaseSchema<T> {
 
-    protected Map<String, Predicate<T>> rules;
+    private Map<String, Predicate<T>> rules;
 
     public BaseSchema() {
         rules = new HashMap<>();
@@ -23,9 +23,12 @@ public class BaseSchema<T> {
      * @return The current schema instance with the "required" rule applied.
      */
     public BaseSchema<T> required() {
-        Predicate<T> required = Objects::nonNull;
-        rules.put("REQUIRED", required);
+        addValidation("REQUIRED", Objects::nonNull);
         return this;
+    }
+
+    public final void addValidation(String ruleName, Predicate<T> rule) {
+        rules.put(ruleName, rule);
     }
 
     public final boolean isValid(T data) {

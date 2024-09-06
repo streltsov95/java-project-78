@@ -1,18 +1,14 @@
 package hexlet.code.schemas;
 
-import java.util.function.Predicate;
-
 public final class NumberSchema extends BaseSchema<Integer> {
 
     public NumberSchema positive() {
-        Predicate<Integer> isPositive = num -> num > 0;
-        rules.put("POSITIVE", isPositive);
+        addValidation("POSITIVE", num -> num > 0);
         return this;
     }
 
     public NumberSchema range(int from, int to) {
-        Predicate<Integer> inRange = num -> num >= from && num <= to;
-        rules.put("RANGE", inRange);
+        addValidation("RANGE", num -> num >= from && num <= to);
         return this;
     }
 }
