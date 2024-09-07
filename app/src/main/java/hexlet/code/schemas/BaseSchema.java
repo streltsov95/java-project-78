@@ -27,7 +27,7 @@ public class BaseSchema<T> {
         return this;
     }
 
-    public final void addValidation(String ruleName, Predicate<T> rule) {
+    protected final void addValidation(String ruleName, Predicate<T> rule) {
         rules.put(ruleName, rule);
     }
 
